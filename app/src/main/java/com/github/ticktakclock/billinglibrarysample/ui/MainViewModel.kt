@@ -2,12 +2,13 @@ package com.github.ticktakclock.billinglibrarysample.ui
 
 import androidx.lifecycle.*
 import com.github.ticktakclock.billinglibrarysample.domain.Coin
+import com.github.ticktakclock.billinglibrarysample.domain.usecase.GetCoins
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class MainViewModel : ViewModel(), LifecycleObserver {
-
-    private val _helloText = MutableLiveData<String>()
-    val helloText: LiveData<String> = _helloText
+class MainViewModel(private val getCoins: GetCoins) : ViewModel(), LifecycleObserver {
 
     private val _coins = MutableLiveData<List<Coin>>()
     val coins: LiveData<List<Coin>> = _coins
@@ -15,8 +16,17 @@ class MainViewModel : ViewModel(), LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         Timber.d("MainViewModel::onCreate")
-        _helloText.postValue("hello onCreate")
-        _coins.postValue(listOf(Coin(), Coin(), Coin(), Coin()))
+        fetchCoins()
+    }
+
+    private fun fetchCoins() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getCoins.execute()
+                .collect {
+                    Timber.d("data collect")
+                    _coins.postValue(it)
+                }
+        }
     }
 
     fun onClickCoin(coin: Coin) {
