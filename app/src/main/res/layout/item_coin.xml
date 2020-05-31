@@ -9,7 +9,7 @@
 
         <variable
             name="coin"
-            type="com.github.ticktakclock.billinglibrarysample.domain.Coin" />
+            type="com.github.ticktakclock.billinglibrarysample.domain.coin.Coin" />
 
         <variable
             name="onClickCoin"

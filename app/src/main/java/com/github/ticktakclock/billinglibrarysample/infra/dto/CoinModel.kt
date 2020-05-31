@@ -1,6 +1,6 @@
 package com.github.ticktakclock.billinglibrarysample.infra.dto
 
-import com.github.ticktakclock.billinglibrarysample.domain.Coin
+import com.github.ticktakclock.billinglibrarysample.domain.coin.Coin
 
 data class CoinModel(val id: Int, val sku: String, val price: Int) {
 

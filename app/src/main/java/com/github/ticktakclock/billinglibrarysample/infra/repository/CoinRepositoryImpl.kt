@@ -1,7 +1,7 @@
 package com.github.ticktakclock.billinglibrarysample.infra.repository
 
-import com.github.ticktakclock.billinglibrarysample.domain.Coin
-import com.github.ticktakclock.billinglibrarysample.domain.repository.CoinRepository
+import com.github.ticktakclock.billinglibrarysample.domain.coin.Coin
+import com.github.ticktakclock.billinglibrarysample.domain.coin.repository.CoinRepository
 import com.github.ticktakclock.billinglibrarysample.infra.dto.CoinModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

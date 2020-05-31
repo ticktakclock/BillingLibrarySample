@@ -1,8 +1,8 @@
 package com.github.ticktakclock.billinglibrarysample.ui
 
 import androidx.lifecycle.*
-import com.github.ticktakclock.billinglibrarysample.domain.Coin
-import com.github.ticktakclock.billinglibrarysample.domain.usecase.GetCoins
+import com.github.ticktakclock.billinglibrarysample.domain.coin.Coin
+import com.github.ticktakclock.billinglibrarysample.domain.coin.usecase.GetCoins
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
