@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.github.ticktakclock.billinglibrarysample.databinding.FragmentMainBinding
+import com.github.ticktakclock.billinglibrarysample.domain.billing.Sku
 import org.koin.android.ext.android.inject
 
 class MainFragment : Fragment() {
@@ -39,6 +41,13 @@ class MainFragment : Fragment() {
     private fun observe() {
         viewModel.run {
             coins.observe(viewLifecycleOwner, coinController.coinsObserver)
+            sku.observe(viewLifecycleOwner, skuObserver)
+        }
+    }
+
+    private val skuObserver = Observer<Sku.Available> { sku ->
+        activity?.let {
+            viewModel.startBilling(it, sku)
         }
     }
 
