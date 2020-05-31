@@ -4,9 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.*
 import com.github.ticktakclock.billinglibrarysample.domain.billing.ConnectionState
 import com.github.ticktakclock.billinglibrarysample.domain.billing.Sku
-import com.github.ticktakclock.billinglibrarysample.domain.billing.usecase.GetSku
-import com.github.ticktakclock.billinglibrarysample.domain.billing.usecase.StartBilling
-import com.github.ticktakclock.billinglibrarysample.domain.billing.usecase.StartConnection
+import com.github.ticktakclock.billinglibrarysample.domain.billing.usecase.*
 import com.github.ticktakclock.billinglibrarysample.domain.coin.Coin
 import com.github.ticktakclock.billinglibrarysample.domain.coin.usecase.GetCoins
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +16,9 @@ class MainViewModel(
     private val getCoins: GetCoins,
     private val startConnection: StartConnection,
     private val getSku: GetSku,
-    private val startBilling: StartBilling
+    private val startBilling: StartBilling,
+    private val getPurchases: GetPurchases,
+    private val consumePurchase: ConsumePurchase
 ) : ViewModel(), LifecycleObserver {
 
     private val _coins = MutableLiveData<List<Coin>>()
@@ -82,13 +82,22 @@ class MainViewModel(
                 when (it) {
                     is Sku.Available -> {
                         Timber.d("Billing Flow succeeded.")
+                        consume()
                     }
                     is Sku.AlreadyOwned -> {
                         Timber.d("Already Owned.")
+                        consume()
                     }
                 }
             }
         }
+    }
 
+    suspend fun consume() {
+        getPurchases.execute().collect {
+            consumePurchase.execute(it).collect {
+                Timber.d("${it.billingResult.responseCode}")
+            }
+        }
     }
 }
