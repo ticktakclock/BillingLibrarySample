@@ -82,11 +82,11 @@ class MainViewModel(
                 when (it) {
                     is Sku.Available -> {
                         Timber.d("Billing Flow succeeded.")
-                        consume()
+//                        consume()
                     }
                     is Sku.AlreadyOwned -> {
                         Timber.d("Already Owned.")
-                        consume()
+//                        consume()
                     }
                 }
             }

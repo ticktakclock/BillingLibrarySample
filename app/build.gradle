@@ -43,6 +43,10 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
 
+    // For navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+
     // For Billing
     def billingVersion = '2.2.1'
     implementation "com.android.billingclient:billing:$billingVersion"

@@ -9,6 +9,7 @@ import com.github.ticktakclock.billinglibrarysample.domain.coin.repository.CoinR
 import com.github.ticktakclock.billinglibrarysample.domain.coin.usecase.GetCoins
 import com.github.ticktakclock.billinglibrarysample.infra.repository.CoinRepositoryImpl
 import com.github.ticktakclock.billinglibrarysample.ui.MainViewModel
+import com.github.ticktakclock.billinglibrarysample.ui.purchase.PurchaseViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -28,4 +29,5 @@ val MODULE_MAIN = module {
     single { BillingClient.newBuilder(androidContext()) }
     single { BillingClientWrapper(get()) }
     viewModel { MainViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { PurchaseViewModel(get(), get()) }
 }
